@@ -1,0 +1,15 @@
+@mixin color-transitions($color) {
+    color: $color;
+    transition: color 250ms $timing-function;
+}
+
+@mixin fill-transitions($color) {
+    fill: $color;
+    transition: color 250ms $timing-function;
+}
+
+@mixin flex-center($x, $y) {
+    display: flex;
+    justify-content: $x;
+    align-items: $y;
+}

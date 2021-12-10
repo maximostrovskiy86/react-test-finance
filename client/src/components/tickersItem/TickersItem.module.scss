@@ -1,0 +1,99 @@
+@import "../../styles/main";
+
+.ticker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    width: 100%;
+    font-size: 14px;
+    background-color: $main-color;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 14%), 0 2px 1px rgb(0 0 0 / 20%);
+    border-radius: 0 0 4px 4px;
+    cursor: pointer;
+    transition: background-color 250ms $timing-function;
+
+    &:hover {
+        background-color: darken($main-color, 15%);
+    }
+
+    div {
+        display: inline-block;
+        padding: 2px 4px;
+        min-width: 55px;
+        border-radius: 4px;
+    }
+
+    div:nth-child(n+2) {
+        margin-right: 10px;
+    }
+
+    div.exchange {
+        margin-right: 10px;
+        @media screen and (min-width: 992px) {
+            margin-right: auto;
+        }
+    }
+
+    .tickerTitle {
+        min-width: 75px;
+        padding: 3px;
+        margin-right: 15px;
+        font-weight: 700;
+        text-align: center;
+        color: $main-color;
+        background-color: rgb(194, 108, 3);
+        border-radius: 2px;
+    }
+
+    @media screen and (min-width: 768px) {
+        font-size: 16px;
+        .price {
+            margin-right: 40px;
+            min-width: 100px;
+            text-align: center;
+        }
+    }
+}
+
+.ticker + .ticker {
+    margin-top: 5px;
+}
+
+div.time,
+div.change,
+div.yd,
+div.dividend {
+    display: none;
+    @media screen and (min-width: 768px) {
+        display: block;
+    }
+}
+
+.up {
+    color: $ticker-color-up;
+    transition: color 250ms $timing-function;
+}
+
+.down {
+    color: $ticker-color-down;
+    transition: color 250ms $timing-function;
+}
+
+div.percent {
+    display: flex;
+    align-items: center;
+    min-width: 70px;
+}
+
+.upPercent {
+    color: $ticker-color-up;
+    background-color: #bff1e0;
+    transition: background-color 750ms $timing-function;
+}
+
+.downPercent {
+    color: $ticker-color-down;
+    background-color: #ffdada;
+    transition: background-color 750ms $timing-function;
+}
