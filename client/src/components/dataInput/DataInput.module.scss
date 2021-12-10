@@ -1,0 +1,33 @@
+.form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
+
+.title {
+    position: absolute;
+    top: 40%;
+    right: 50%;
+    font-size: 22px;
+    color: #237ef5;
+    transform: translate(50%, -50%);
+    z-index: 10;
+}
+
+.number {
+    margin-left: 5px;
+    height: 25px;
+    border-radius: 5px;
+}
+
+.ticker {
+    composes: number;
+    margin-bottom: 10px;
+}
+
+.btn {
+    margin-top: 15px;
+    font-size: 18px;
+}

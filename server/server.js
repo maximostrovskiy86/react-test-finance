@@ -1,4 +1,3 @@
-"use strict";
 const express = require("express");
 const http = require("http");
 const io = require("socket.io");
@@ -8,7 +7,7 @@ const shortid = require("shortid");
 const FETCH_INTERVAL = 5000;
 const PORT = process.env.PORT || 4000;
 
-const tickers = [
+let tickers = [
   "AAPL", // Apple
   "GOOGL", // Alphabet
   "MSFT", // Microsoft
@@ -16,6 +15,14 @@ const tickers = [
   "FB", // Facebook
   "TSLA", // Tesla
 ];
+
+function deleteTicker(title) {
+  tickers = tickers.filter((ticker) => ticker !== title);
+}
+
+function addTicker(ticker) {
+  tickers.push(ticker);
+}
 
 function randomValue(min = 0, max = 1, precision = 0) {
   const random = Math.random() * (max - min) + min;
@@ -30,7 +37,7 @@ function utcDate() {
     now.getUTCDate(),
     now.getUTCHours(),
     now.getUTCMinutes(),
-    now.getUTCSeconds()
+    now.getUTCSeconds(),
   );
 }
 
@@ -55,11 +62,11 @@ function trackTickers(socket) {
   getQuotes(socket);
 
   // every N seconds
-  const timer = setInterval(function () {
+  const timer = setInterval(() => {
     getQuotes(socket);
   }, FETCH_INTERVAL);
 
-  socket.on("disconnect", function () {
+  socket.on("disconnect", () => {
     clearInterval(timer);
   });
 }
@@ -74,19 +81,21 @@ const socketServer = io(server, {
   },
 });
 
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+app.get("/", (req, res) => {
+  res.sendFile(`${__dirname}/index.html `);
 });
 
-const date = new Date();
-const minute = date.getMinutes();
-const second = date.getSeconds();
-
 socketServer.on("connection", (socket) => {
-  console.log("User connected!", minute, second);
   socket.on("start", () => {
-    console.log("User connected!", minute, second);
     trackTickers(socket);
+  });
+
+  socket.on("addTicker", ({ ticker }) => {
+    addTicker(ticker);
+  });
+
+  socket.on("deleteTicker", ({ ticker }) => {
+    deleteTicker(ticker);
   });
 });
 

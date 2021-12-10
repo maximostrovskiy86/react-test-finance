@@ -10,7 +10,6 @@
     background-color: $main-color;
     box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 14%), 0 2px 1px rgb(0 0 0 / 20%);
     border-radius: 0 0 4px 4px;
-    cursor: pointer;
     transition: background-color 250ms $timing-function;
 
     &:hover {
@@ -20,8 +19,11 @@
     div {
         display: inline-block;
         padding: 2px 4px;
-        min-width: 55px;
+        min-width: 40px;
         border-radius: 4px;
+        @media screen and (min-width: 768px) {
+            min-width: 55px;
+        }
     }
 
     div:nth-child(n+2) {
@@ -29,7 +31,11 @@
     }
 
     div.exchange {
-        margin-right: 10px;
+        display: none;
+        @media screen and (min-width: 768px) {
+            display: block;
+            margin-right: 10px;
+        }
         @media screen and (min-width: 992px) {
             margin-right: auto;
         }

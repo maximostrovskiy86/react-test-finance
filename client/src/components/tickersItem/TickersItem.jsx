@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Button from "react-bootstrap/Button";
+import { useDispatch } from "react-redux";
+import { tickersOperations } from "../../redux/tickers";
 import style from "./TickersItem.module.scss";
-import ArrowUp from "../arrowUp/ArrowUp";
-import ArrowDown from "../arrowDown/ArrowDown";
+import { ArrowUp, ArrowDown, DeleteButton } from "../iconSvgComponents";
 
 const TickersItem = function ({
   ticker,
@@ -15,6 +17,11 @@ const TickersItem = function ({
   lastTradeTime,
   isPriceUp,
 }) {
+  const dispatch = useDispatch();
+  const onRemoveUser = () => {
+    dispatch(tickersOperations.deleteTicker(ticker));
+  };
+
   return (
     <li className={style.ticker}>
       <div className={style.tickerTitle}> {ticker}</div>
@@ -32,6 +39,9 @@ const TickersItem = function ({
       <div className={style.yd}>{yd}</div>
       <div className={style.dividend}>{dividend}</div>
       <div className={style.time}> {lastTradeTime}</div>
+      <Button variant="outline-warning" size="sm" onClick={onRemoveUser}>
+        <DeleteButton />
+      </Button>
     </li>
   );
 };

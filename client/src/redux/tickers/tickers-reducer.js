@@ -4,12 +4,30 @@ import {
   getTickersRequest,
   getTickersSuccess,
   getTickersError,
+  addTickerRequest,
+  addTickerSuccess,
+  addTickerError,
+  deleteTickerRequest,
+  deleteTickerSuccess,
+  deleteTickerError,
 } from "./tickers-actions";
 
 const initialState = [];
 
 const tickers = createReducer(initialState, {
   [getTickersSuccess]: (state, action) => action.payload,
+});
+
+const loading = createReducer(false, {
+  [addTickerRequest]: () => true,
+  [addTickerSuccess]: () => false,
+  [addTickerError]: () => false,
+  [deleteTickerRequest]: () => true,
+  [deleteTickerSuccess]: () => false,
+  [deleteTickerError]: () => false,
+  [getTickersRequest]: () => true,
+  [getTickersSuccess]: () => false,
+  [getTickersError]: () => false,
 });
 
 const error = createReducer("", {
@@ -19,6 +37,7 @@ const error = createReducer("", {
 
 const tickerReducers = combineReducers({
   tickers,
+  loading,
   error,
 });
 
